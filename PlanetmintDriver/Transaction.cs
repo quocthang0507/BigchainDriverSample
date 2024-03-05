@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Omnibasis.BigchainCSharp.Model;
 
-namespace BigchainDriverSample
+namespace PlanetmintDriver
 {
     [Serializable]
     public class Transaction<A, M>

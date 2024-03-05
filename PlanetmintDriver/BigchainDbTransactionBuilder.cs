@@ -8,7 +8,7 @@ using Omnibasis.BigchainCSharp.Util;
 using Omnibasis.CryptoConditionsCSharp;
 using Omnibasis.CryptoConditionsCSharp.Types;
 
-namespace BigchainDriverSample
+namespace PlanetmintDriver
 {
     public class BigchainDbTransactionBuilder<A0, M0>
     {

@@ -6,7 +6,7 @@ using Omnibasis.BigchainCSharp.Model;
 using Omnibasis.BigchainCSharp.Util;
 using System.Net;
 
-namespace BigchainDriverSample
+namespace PlanetmintDriver
 {
     public class TransactionsApi<A, M> : AbstractApi
     {

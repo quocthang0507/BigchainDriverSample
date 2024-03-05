@@ -4,6 +4,7 @@ using NSec.Cryptography;
 using Omnibasis.BigchainCSharp.Builders;
 using Omnibasis.BigchainCSharp.Constants;
 using Omnibasis.BigchainCSharp.Util;
+using PlanetmintDriver;
 
 internal class Program
 {
@@ -32,7 +33,7 @@ internal class Program
         };
 
         // Set up, sign, and send your transaction
-        var transaction = BigchainDriverSample.BigchainDbTransactionBuilder<object, MetadataModel>
+        var transaction = PlanetmintDriver.BigchainDbTransactionBuilder<object, MetadataModel>
             .Init()
             .AddAssets(assetData.ToObject())
             .Operation(Operations.CREATE)
