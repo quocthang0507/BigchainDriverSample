@@ -5,7 +5,7 @@ namespace BigchainDriverSample
 {
     public class AssetModel<T>
     {
-        public required T Body { get; set; };
+        public required T Body { get; set; }
 
         public override string ToString()
         {
