@@ -1,5 +1,6 @@
 ﻿using Multiformats.Base;
 using Multiformats.Hash;
+using Newtonsoft.Json;
 
 namespace BigchainDriverSample
 {
