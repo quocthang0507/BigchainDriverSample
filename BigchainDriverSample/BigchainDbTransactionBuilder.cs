@@ -53,14 +53,14 @@ namespace BigchainDriverSample
 
         public interface IBuild<A2, M2>
         {
-            Task<BlockchainResponse<Transaction<A2, M2>>> SendTransactionAsync(BigchainDbConfigBuilder.IBlockchainConfigurationBuilder builder = null);
+            Task<BlockchainResponse<Transaction<A2, M2>>> SendTransactionAsync(BigchainDbConfigBuilder.IBlockchainConfigurationBuilder? builder = null);
 
-            Task<BlockchainResponse<Transaction<A2, M2>>> SendTransactionAsync(GenericCallback callback, BigchainDbConfigBuilder.IBlockchainConfigurationBuilder builder = null);
+            Task<BlockchainResponse<Transaction<A2, M2>>> SendTransactionAsync(GenericCallback callback, BigchainDbConfigBuilder.IBlockchainConfigurationBuilder? builder = null);
         }
 
         public class Builder<A, M> : ITransactionAttributes<A, M>, IBuild<A, M>
         {
-            private MetaData<M> metadata;
+            private MetaData<M>? metadata;
 
             private IList<Asset<A>> assets = [];
 
@@ -235,7 +235,7 @@ namespace BigchainDriverSample
                 throw new Exception("Invalid Operations value. Accepted values are [Operations.CREATE, Operations.TRANSFER]");
             }
 
-            private void sign(Key key)
+            private void Sign(Key key)
             {
                 string text = DriverUtils.makeSelfSortingGson(transaction.ToHashInput());
                 Ed25519 ed = SignatureAlgorithm.Ed25519;
@@ -268,7 +268,7 @@ namespace BigchainDriverSample
                 try
                 {
                     Build(publicKey);
-                    sign(privateKey);
+                    Sign(privateKey);
                 }
                 catch (Exception ex)
                 {
@@ -284,7 +284,7 @@ namespace BigchainDriverSample
                 try
                 {
                     Build(key.PublicKey);
-                    sign(key);
+                    Sign(key);
                 }
                 catch (Exception ex)
                 {
@@ -313,12 +313,12 @@ namespace BigchainDriverSample
                 return transaction;
             }
 
-            public virtual async Task<BlockchainResponse<Transaction<A, M>>> SendTransactionAsync(GenericCallback callback, BigchainDbConfigBuilder.IBlockchainConfigurationBuilder builder = null)
+            public virtual async Task<BlockchainResponse<Transaction<A, M>>> SendTransactionAsync(GenericCallback callback, BigchainDbConfigBuilder.IBlockchainConfigurationBuilder? builder = null)
             {
                 return await TransactionsApi<A, M>.SendTransactionAsync(transaction, callback, builder);
             }
 
-            public virtual async Task<BlockchainResponse<Transaction<A, M>>> SendTransactionAsync(BigchainDbConfigBuilder.IBlockchainConfigurationBuilder builder = null)
+            public virtual async Task<BlockchainResponse<Transaction<A, M>>> SendTransactionAsync(BigchainDbConfigBuilder.IBlockchainConfigurationBuilder? builder = null)
             {
                 return await TransactionsApi<A, M>.SendTransactionAsync(transaction, builder);
             }
@@ -330,7 +330,7 @@ namespace BigchainDriverSample
         {
         }
 
-        public static Builder<A0, M0> init()
+        public static Builder<A0, M0> Init()
         {
             return new Builder<A0, M0>();
         }

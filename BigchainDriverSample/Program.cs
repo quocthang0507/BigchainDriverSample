@@ -33,7 +33,7 @@ internal class Program
 
         // Set up, sign, and send your transaction
         var transaction = BigchainDriverSample.BigchainDbTransactionBuilder<object, MetadataModel>
-            .init()
+            .Init()
             .AddAssets(assetData.ToObject())
             .Operation(Operations.CREATE)
             .BuildAndSignOnly(publicKey, privateKey);
