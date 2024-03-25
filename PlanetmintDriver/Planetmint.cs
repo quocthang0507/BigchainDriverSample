@@ -23,10 +23,7 @@ namespace PlanetmintDriver
         private ILogger logger;
         private Transaction<A, M> transaction;
 
-        public string Transaction
-        {
-            get { return transaction.ToString(); }
-        }
+        public string Transaction => transaction.ToString();
 
         public Planetmint(string serverUrl, string privateKeyString, string publicKeyString)
         {
@@ -85,15 +82,33 @@ namespace PlanetmintDriver
             return transaction;
         }
 
+        /// <summary>
+        /// Send transaction and verify asset's ID equal to transaction ID
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task Send()
         {
             var response = await TransactionsApi<A, M>.SendTransactionAsync(transaction);
+            // Failed to send transaction
             if (response == null || response.Data == null)
-                // Failed to send transaction
+            {
+                logger.LogError(Constants._400);
                 throw new Exception(Constants._400);
+            }
             var assetId = response.Data.Id;
             // Failed to find asset's id
-            _ = GetTransactionById(assetId) ?? throw new Exception(Constants._404);
+            var transaction2 = await GetTransactionById(assetId);
+            if (transaction2 == null)
+            {
+                logger.LogError(Constants._404);
+                throw new Exception(Constants._404);
+            }
+        }
+
+        public async Task Transfer()
+        {
+
         }
     }
 }
