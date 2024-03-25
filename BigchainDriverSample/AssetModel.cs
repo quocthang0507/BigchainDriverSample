@@ -1,16 +1,14 @@
-﻿using Multiformats.Base;
-using Multiformats.Hash;
-using Newtonsoft.Json;
+﻿using PlanetmintDriver;
 
 namespace BigchainDriverSample
 {
     public class AssetModel<T>
     {
-        public required T Body { get; set; }
+        public required T Body { get; set; } = default!;
 
         public override string ToString()
         {
-            return Multihash.Encode(Body?.ToString(), HashType.SHA2_256).ToString(MultibaseEncoding.Base58Btc);
+            return Body.ToString().Multihash();
         }
 
         public object ToObject()

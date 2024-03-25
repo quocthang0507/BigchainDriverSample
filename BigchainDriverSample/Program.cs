@@ -14,7 +14,8 @@ internal class Program
     private static void Main(string[] args)
     {
         // single connection
-        var builder = BigchainDbConfigBuilder.baseUrl("https://test.ipdb.io");
+        BigchainDbConfigBuilder.IBlockchainConfigurationBuilder builder = BigchainDbConfigBuilder.baseUrl("https://test.ipdb.io");
+        //BigchainDbConfigBuilder.IBlockchainConfigurationBuilder builder = BigchainDbConfigBuilder.baseUrl("http://172.207.24.133:9984");
 
         if (!AsyncContext.Run(() => builder.setup()))
         {
@@ -26,7 +27,7 @@ internal class Program
         var privateKey = Key.Import(algorithm, Utils.StringToByteArray(privateKeyString), KeyBlobFormat.PkixPrivateKey);
         var publicKey = PublicKey.Import(algorithm, Utils.StringToByteArray(publicKeyString), KeyBlobFormat.PkixPublicKey);
 
-        Random random = new();
+        //Random random = new();
         AssetModel<string> assetData = new()
         {
             Body = "Blockchain all the things!"
@@ -35,7 +36,7 @@ internal class Program
         // Set up, sign, and send your transaction
         var transaction = PlanetmintDriver.BigchainDbTransactionBuilder<object, MetadataModel>
             .Init()
-            .AddAssets(assetData.ToObject())
+            .AddAssets(assetData)
             .Operation(Operations.CREATE)
             .BuildAndSignOnly(publicKey, privateKey);
 
@@ -59,6 +60,11 @@ internal class Program
         {
             Console.WriteLine("Failed to send transaction: " + createTransaction.Messsage.Message);
         }
+
+        // continue from example above, where we know the asset id
+
+
+        //=====================================================================
 
         Console.ReadKey(true);
     }
